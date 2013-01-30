@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load url from future %}
+
+<ul>
+    {% for author in author_list %}
+    <li>
+        {{ author.pk }} : {{ author.firstname }} {{ author.lastname }}
+        <ul class="nav nav-pills">
+            <li>
+                <form class="pull-right" method="get" action="{% url 'author_details' author.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-info" type="submit">
+                        Author details
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form method="get" action="/books/author/{{ author.id }}/edit/">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">
+                        Update
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form method="post" action="/books/author/{{ author.id }}/delete/">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">
+                        Delete
+                    </button>
+                </form>
+            </li>
+        </ul>
+        <ul class="nav nav-pills">
+
+            <li>
+                <form class="pull-right" method="get" action="{% url 'book_list' author.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-info" type="submit">
+                        See books
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form class="pull-right" method="get" action="{% url 'book_add' author.pk %}">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">
+                        Add a book
+                    </button>
+                </form>
+            </li>
+        </ul>
+        <hr/>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

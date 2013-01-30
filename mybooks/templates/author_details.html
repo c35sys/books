@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load url from future %}
+
+<div class="well btn-toolbar">
+
+    <h3>{{ author.firstname.errors }}{{ author.firstname }} {{ author.lastname.errors }}{{ author.lastname }}</h3>
+</div>
+
+<div class="well btn-toolbar ">
+    <a class="btn pull-right" href="{% url 'book_add' author.pk %}">Add a book</a>
+</div>
+
+<div class="well btn-toolbar">
+    
+    <br />
+
+    <h3>Author details</h3>
+    {% csrf_token %}
+
+    <div>
+        {{ author.firstname.errors }}
+        <label for="id_firstname"><strong>Firstname :</strong> 
+            <p>{{ author.firstname }}</p>
+        </label>
+    </div>
+    <br />
+    <div>
+        {{ author.lastname.errors }}
+        <label for="id_lastname"><strong>Lastname :</strong>
+            <p>{{ author.lastname }}</p>
+        </label>
+    </div>
+    <br />
+
+</div>
+
+{% endblock content %}
+
